@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+  nginx:
+    image: nginx
+    volumes: 
+      - ./nginx.conf:/etc/nginx/conf.d/sse.conf
+      - ./ssl/:/etc/nginx/ssl/
+    ports:
+      - 8443:8443
