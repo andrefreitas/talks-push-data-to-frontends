@@ -3,12 +3,22 @@ services:
   server:
     build:
       context: .
-    ports:
-      - 8080:8080
+    command: node server.js
+    ports: [8080]  
+  wss:
+    build:
+      context: .
+    command: node wss.js
+    ports: [8080]  
   nginx:
     image: nginx
     volumes: 
-      - ./nginx.conf:/etc/nginx/conf.d/sse.conf
+      - ./sse.conf:/etc/nginx/conf.d/sse.conf
+      - ./wss.conf:/etc/nginx/conf.d/wss.conf
       - ./ssl/:/etc/nginx/ssl/
     ports:
       - 8443:8443
+      - 8444:8444
+    depends_on:
+      - server
+      - wss

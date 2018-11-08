@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Websockets Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <script type="text/javascript">
+
+    function subscribeFeed() {
+        var elem = document.getElementById("feed");
+        var feed = new WebSocket("ws://" + window.location.host);
+        feed.onmessage = function(event) {
+            elem.innerHTML += event.data + "<br>";
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        subscribeFeed();
+    });
+    
+    </script>
+        
+    <h1>Websockets Demo</h1>
+    <h2>Live Feed</h2>
+    <div id="feed">
+        
+    </div>
+</body>
+</html>
